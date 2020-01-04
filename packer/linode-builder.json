@@ -1,0 +1,29 @@
+
+{
+  "variables": {
+    "linode_token": "{{env `linode_token`}}",
+    "region": "{{env `region`}}",
+    "instance_type": "{{env `instance_type`}}"
+  },
+
+  "builders": [{
+      "type": "linode",
+      "region": "{{user `region`}}",
+      "instance_label": "{{timestamp}}-packer-runner",
+      "instance_type": "{{user `instance_type`}}",
+      "linode_token": "{{user `linode_token`}}",
+      
+      "image": "linode/alpine3.11",
+      "image_label": "docker-host-{{timestamp}}",
+      "image_description": "An Alpine image to with docker installed",
+    
+      "ssh_username": "root"
+  }],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "packer/setup-docker-alpine.sh"
+    }
+  ]
+}
