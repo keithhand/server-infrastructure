@@ -1,3 +1,3 @@
-output "instance_ip_addr" {
-    value = linode_instance.main_server.ipv4
+output "instance_ip_address" {
+    value = module.linode.instance_ip_address
 }
