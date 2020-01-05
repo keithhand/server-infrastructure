@@ -4,10 +4,14 @@ provider "cloudflare" {
 }
 
 locals {
+    linode_ip = linode_instance.main_server.ip_address
+
     keithhand_dev_id = "5dd843d66f2e903eed8150d99d7039c6"
     keithhand_dev_name = "keithhand.dev"
     hand_technology_id = "2d11995f2e5b049ae67b8ef00e8a664e"
     hand_technology_name = "hand.technology"
+
+    direct_route_cname = "evdbuuskdlkd"
 
     zones = {
         "${local.keithhand_dev_id}" = "${local.keithhand_dev_name}"
@@ -18,7 +22,7 @@ locals {
 resource "cloudflare_record" "keithhand_dev_a_record" {
     zone_id = local.keithhand_dev_id
     name = local.keithhand_dev_name
-    value = linode_instance.main_server.ip_address
+    value = local.linode_ip
     type = "A"
     ttl = 1
     proxied = true
@@ -41,4 +45,13 @@ resource "cloudflare_record" "www_redirects" {
     type = "CNAME"
     ttl = 1
     proxied = true
+}
+
+resource "cloudflare_record" "non_proxied_route" {
+    zone_id = local.keithhand_dev_id
+    name = local.direct_route_cname
+    value = local.linode_ip
+    type = "A"
+    ttl = 300
+    proxied = false
 }
