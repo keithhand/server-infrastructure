@@ -13,9 +13,9 @@
       "instance_type": "{{user `instance_type`}}",
       "linode_token": "{{user `linode_token`}}",
       
-      "image": "linode/alpine3.11",
-      "image_label": "docker-host-{{timestamp}}",
-      "image_description": "An Alpine image to with docker installed",
+      "image": "linode/debian9",
+      "image_label": "debian9-ansible",
+      "image_description": "An Debian 9 image with ansible installed",
     
       "ssh_username": "root"
   }],
@@ -23,7 +23,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "script": "packer/setup-docker-alpine.sh"
+      "script": "packer/setup-ansible-apt.sh"
     }
   ]
 }
