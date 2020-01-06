@@ -1,0 +1,23 @@
+# Get variables from .env file
+$(cat .env)
+
+# This is where we can set public configuration env variables
+VARIABLES=(
+    # Public
+    linode_region='us-east'
+    instance_type='g6-standard-1'
+
+
+    # Private (set in .env file)
+    linode_token=$linode_token
+    cloudflare_token=$cloudflare_token
+    non_proxied_route=$non_proxied_route
+    private_ssh_key=$private_ssh_key
+)
+
+# Exports the different variable types that might be needed for the project
+for var in ${VARIABLES[@]}; do
+    export "$var"
+    export "TF_VAR_$var"
+done
+ 
