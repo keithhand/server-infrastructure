@@ -1,2 +1,3 @@
 variable "token" {}
-variable "linode_ip" {}
+variable "main_server_ip" {}
+variable "non_proxied_route" {}

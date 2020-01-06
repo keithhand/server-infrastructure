@@ -3,12 +3,14 @@ module "linode" {
 
     token = var.linode_token
     instance_type = var.instance_type
-    region = var.region
+    region = var.linode_region
+    non_proxied_route = var.non_proxied_route
 }
 
 module "cloudflare" {
     source = "./cloudflare"
 
     token = var.cloudflare_token
-    linode_ip = module.linode.instance_ip_address
+    non_proxied_route = var.non_proxied_route
+    main_server_ip = module.linode.instance_ip_address
 }

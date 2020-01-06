@@ -9,8 +9,6 @@ locals {
     hand_technology_id = "2d11995f2e5b049ae67b8ef00e8a664e"
     hand_technology_name = "hand.technology"
 
-    direct_route_cname = "evdbuuskdlkd"
-
     zones = {
         "${local.keithhand_dev_id}" = "${local.keithhand_dev_name}"
         "${local.hand_technology_id}" = "${local.hand_technology_name}"
@@ -20,7 +18,7 @@ locals {
 resource "cloudflare_record" "keithhand_dev_a_record" {
     zone_id = local.keithhand_dev_id
     name = local.keithhand_dev_name
-    value = var.linode_ip
+    value = var.main_server_ip
     type = "A"
     ttl = 1
     proxied = true
@@ -47,9 +45,9 @@ resource "cloudflare_record" "www_redirects" {
 
 resource "cloudflare_record" "non_proxied_route" {
     zone_id = local.keithhand_dev_id
-    name = local.direct_route_cname
-    value = var.linode_ip
+    name = var.non_proxied_route
+    value = var.main_server_ip
     type = "A"
-    ttl = 300
+    ttl = 120
     proxied = false
 }
