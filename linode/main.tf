@@ -10,23 +10,34 @@ resource "linode_instance" "server" {
   authorized_users = var.authorized_users
 }
 
-resource "null_resource" "docker-machine" {
+resource "null_resource" "docker_machine" {
   triggers = {
-    server_ip = linode_instance.server.ip_address
-    server_name = var.server_name
+    ip_address = linode_instance.server.ip_address
+    label = linode_instance.server.label
   }
 
   provisioner "local-exec" {
-    command = "yes | docker-machine rm ${self.triggers.server_name}"
-    on_failure = continue
+    when = create
+    command = "yes | docker-machine rm ${self.triggers.label}"
   }
 
   provisioner "local-exec" {
     environment = {
-      GENERIC_IP_ADDRESS = self.triggers.server_ip
+      GENERIC_IP_ADDRESS = self.triggers.ip_address
       GENERIC_SSH_USER = "root"
     }
-
-    command = "docker-machine create -d generic ${self.triggers.server_name}"
+    command = "docker-machine create -d generic ${self.triggers.label}"
   }
+}
+
+resource "null_resource" "ansible" {
+  count = 0
+// TODO: Add ansible call
+//  provisioner "remote-exec" {
+//    connection {
+//      host = linode_instance.server.ip_address
+//      user = "root"
+//      private_key = file(var.ssh_key_path)
+//    }
+//  }
 }
