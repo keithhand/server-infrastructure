@@ -7,6 +7,11 @@ variable "token" {
   type = string
 }
 
+variable "ssh_key_path" {
+  description = "Key path that is associated with Linode account"
+  type = string
+}
+
 /**
   These variables are public
 */

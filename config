@@ -12,7 +12,7 @@ VARIABLES=(
     linode_token=$linode_token
     cloudflare_token=$cloudflare_token
     non_proxied_route=$non_proxied_route
-    private_ssh_key=$private_ssh_key
+    ssh_key_path=$ssh_key_path
 )
 
 # Exports the different variable types that might be needed for the project

@@ -4,6 +4,7 @@ module "linode" {
     token = var.linode_token
     instance_type = var.instance_type
     region = var.linode_region
+    ssh_key_path = var.ssh_key_path
 }
 
 module "cloudflare" {
