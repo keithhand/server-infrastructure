@@ -1,0 +1,9 @@
+- name: "Server Init. Installs Vault"
+  hosts: localhost
+  connection: local
+  tasks:
+
+    - name: "Start Vault Container"
+      docker_container:
+        name: "Hello-world"
+        image: hello-world
