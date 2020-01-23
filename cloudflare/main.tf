@@ -44,7 +44,7 @@ resource "cloudflare_record" "www_redirects" {
 }
 
 resource "cloudflare_record" "non_proxied_route" {
-    zone_id = local.keithhand_dev_id
+    zone_id = local.hand_technology_id
     name = var.non_proxied_route
     value = var.main_server_ip
     type = "A"
